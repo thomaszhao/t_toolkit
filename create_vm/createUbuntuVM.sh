@@ -136,8 +136,9 @@ function modify_vm_fs()
     echo "$offSet"
     mount -o loop,offset=$offSet $vm_img /mnt/   || fatal "mount failed"
 
-    ## hostname
+    ## hostname: from "template" to real hostname
     echo $hostname > /mnt/etc/hostname
+    sed -i -e "s/template/$hostname/g" /mnt/etc/hosts
 
     ## network
     local ether_str="iface eth0 inet static\n"
@@ -152,6 +153,13 @@ function modify_vm_fs()
     cp $HOSTS_ALLOW  /mnt/etc/hosts.allow
     chmod 644 /mnt/etc/hosts.allow
     chattr +i /mnt/etc/hosts.allow
+
+    ## allow root to login
+    sed -i -e ":t;N;s/\nPermitRootLogin without-password/\nPermitRootLogin yes/g" /mnt/etc/ssh/sshd_config 
+
+
+    ## passwd
+    # TODO: Thomas don't know how to do it by now.
 
     ## auto-format diskette, and fstab
     # TODO: Thomas don't know how to do it by now.
