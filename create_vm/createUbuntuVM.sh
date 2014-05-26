@@ -67,14 +67,14 @@ function fatal()
 ## Fetch template image and template xml, then unzip them.
 function fetch_resources()
 {
-    if[ ! -f $HOSTS_ALLOW ]; do
+    if[ ! -f $HOSTS_ALLOW ]; then
         # TODO: md5sum check
         wget -O $TEMPLATE_IMG_GZ $SERVER_URL$TEMPLATE_IMG_GZ  ||   fatal "download fail"
         gzip -dc $TEMPLATE_IMG_GZ > $TEMPLATE_IMG      || fatal "unzip fail"
 
         wget -O $HOSTS_ALLOW  $HOSTS_ALLOW_SERVER_URI   || fatal "download host.allow fail"
 
-    done
+    fi
 
 }
 
@@ -103,7 +103,11 @@ function create_conf()
     local vm_name=$1
 
     local disk_str="--disk path=$VMDIR/$1.img "
-    disk_str+="--disk path=$PHY_DISK "
+    
+    # more disks:
+    if [ -b $PHY_DISK1 ]  ; then
+        disk_str+="--disk path=$PHY_DISK "
+    fi
 
     virt-install --connect=xen  \
                  --name=$vm_name \
