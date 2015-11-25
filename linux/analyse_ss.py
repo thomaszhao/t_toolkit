@@ -26,7 +26,7 @@ def analyseLine(line):
        rttvar = match.group(2)
        
        snd_cwnd = match.group(3)
-       snd_cwnd_arr.append(float(snd_cwnd))
+       snd_cwnd_arr.append(int(snd_cwnd))
        
        send = match.group(4)
        
@@ -36,22 +36,25 @@ def analyseLine(line):
 
 
 def printMeanValue(title, arr):
+    print "###########################" 
     print title
 
     print arr
 
     length = len(arr)
-    print "length: %d" % length
-    print "25th Percentile: " + str(arr[int(length*0.25)])
-    print "50th Percentile: " + str(arr[int(length*0.50)])
-    print "75th Percentile: " + str(arr[int(length*0.75)])
-    print "95th Percentile: " + str(arr[int(length*0.95)])
+    arr.sort()
+
+    print "length:     %d" % length
+    print "25th Percentile:    " + str(arr[int(length*0.25)])
+    print "50th Percentile:    " + str(arr[int(length*0.50)]) + "  *"
+    print "75th Percentile:    " + str(arr[int(length*0.75)])
+    print "95th Percentile:    " + str(arr[int(length*0.95)])
 
     # average value
     sum = 0.0
     for a in arr:
         sum += a
-    print "* Average Value: " + str(sum/length)
+    print " Average Value:     %.3f  *" % (sum/length)
 
 
 
