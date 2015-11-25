@@ -12,11 +12,11 @@ snd_cwnd_arr = []
 
 
 def analyseLine(line):
-   match = pattern.match(line)
+    match = pattern.match(line)
 
-   #print line
+    #print line
    
-   if match:
+    if match:
        #print "Matched!"
        #print match.groups()
        
@@ -30,7 +30,7 @@ def analyseLine(line):
        
        send = match.group(4)
        
-   else:
+    else:
        #print "Not Matched!"
        pass
 
@@ -39,9 +39,12 @@ def printMeanValue(title, arr):
     print "###########################" 
     print title
 
-    print arr
-
     length = len(arr)
+    
+    # for debug:
+    if length < 100:
+        print arr
+
     arr.sort()
 
     print "length:     %d" % length
