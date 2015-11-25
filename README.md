@@ -16,7 +16,14 @@ Toolkit for linux.
 
 * retransmit_rate.sh
 
-Caculate the retransmit rate in `netstat -s` command.
+(experimetal)
+Calculate the retransmit rate in `netstat -s` command.
+
+
+* analyse_ss.py
+
+(experimetal)
+Calculate the mean value of `rtt` `snd_cwnd` info in `ss --info` command.
 
 
 
