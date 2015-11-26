@@ -69,7 +69,7 @@ def doStatistic():
 
 def usage():
     print "Usage:"
-    print "   ss -t -i | ./analyse_ss.py"
+    print "   ss -t -i \"sport == :80\" | ./analyse_ss.py"
     print "Or"
     print "   echo \"xxxxxxx\" | ./analyse_ss.py"
 
